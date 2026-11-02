@@ -113,3 +113,35 @@ def check_numbers(df):
                 )
 
     return issues
+
+DATE_FIELDS = ["offer_date", "valid_until"]
+
+
+def to_date(value):
+    """Convert YYYY-MM-DD text to a date. Return None if that is not possible."""
+    if is_missing(value):
+        return None
+    result = pd.to_datetime(str(value).strip(), format="%Y-%m-%d", errors="coerce")
+    if pd.isna(result):
+        return None
+    return result
+def check_dates(df):
+    """Flag invalid dates and offers that expire before they start."""
+    issues = []
+    for index, row in df.iterrows():
+        for field in DATE_FIELDS:
+            value = row[field]
+            if not is_missing(value) and to_date(value) is None:
+                issues.append(
+                    make_issue(index, row, field, "Not a valid date (expected YYYY-MM-DD)")
+                )
+
+        offer_date = to_date(row["offer_date"])
+        valid_until = to_date(row["valid_until"])
+
+        if offer_date is not None and valid_until is not None and valid_until < offer_date:
+            issues.append(
+                make_issue(index, row, "valid_until", "Valid-until date is before offer date")
+            )
+
+    return issues
