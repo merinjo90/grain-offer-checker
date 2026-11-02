@@ -145,3 +145,76 @@ def check_dates(df):
             )
 
     return issues
+
+ALLOWED_VALUES = {
+    "equipment_type": ["silo", "conveyor", "dryer", "cleaner"],
+    "data_source": ["manual_entry", "ai_extracted"],
+}
+
+TOTAL_TOLERANCE_EUR = 1
+
+ISSUE_COLUMNS = ["row_number", "offer_id", "field", "original_value", "reason", "severity"]
+
+
+def check_allowed_values(df):
+    """Flag values that are not in the allowed list."""
+    issues = []
+    for index, row in df.iterrows():
+        for field, allowed in ALLOWED_VALUES.items():
+            value = row[field]
+            if is_missing(value):
+                continue
+            if value not in allowed:
+                issues.append(
+                    make_issue(index, row, field, "Not an allowed value: " + ", ".join(allowed))
+                )
+    return issues
+
+
+def check_total_price(df):
+    """Flag totals that do not equal quantity x unit price."""
+    issues = []
+    for index, row in df.iterrows():
+        quantity = to_number(row["quantity"])
+        unit_price = to_number(row["unit_price_eur"])
+        total = to_number(row["total_price_eur"])
+        if quantity is None or unit_price is None or total is None:
+            continue  # invalid numbers are reported by check_numbers
+        expected = quantity * unit_price
+        if abs(total - expected) > TOTAL_TOLERANCE_EUR:
+            issues.append(
+                make_issue(index, row, "total_price_eur",
+                           f"Does not match quantity x unit price ({expected:.0f})")
+            )
+    return issues
+
+
+def check_ai_extracted(df):
+    """Mark AI-extracted records for human review."""
+    issues = []
+    for index, row in df.iterrows():
+        if row["data_source"] == "ai_extracted":
+            issues.append(
+                make_issue(
+                    index, row, "data_source",
+                    "AI-extracted record: needs human review",
+                    "review"
+                )
+            )
+    return issues
+
+def validate(df):
+    """Run all checks and return the issues as a DataFrame."""
+    checks = [
+        check_required_fields,
+        check_duplicate_ids,
+        check_numbers,
+        check_dates,
+        check_allowed_values,
+        check_total_price,
+        check_ai_extracted,
+    ]
+    issues = []
+    for check in checks:
+        issues.extend(check(df))
+    return pd.DataFrame(issues, columns=ISSUE_COLUMNS)
