@@ -11,3 +11,4 @@ output/
 
 # Private notes (never upload)
 private/
+*.save
