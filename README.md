@@ -29,13 +29,15 @@ python -m grain_offer_checker.pipeline         # run all checks
 python -m pytest -v                            # run the tests
 ```
 
-Options: `python -m grain_offer_checker.pipeline --input FILE.csv --output FOLDER`
+Options: `--input` accepts one CSV file **or a folder** of CSV files (combined into one report, with a `source_file` column); `--output` sets the report folder.
+
+Example: `python -m grain_offer_checker.pipeline --input data/batch --output output/batch`
 
 Run commands from the project folder.
 
 ## Output
 
-`output/issues_report.csv`: one row per issue (row, offer ID, field, original value, reason, severity).
+`output/issues_report.csv`: one row per issue (row, source file, offer ID, field, original value, reason, severity).
 
 `output/review_report.xlsx` with six sheets:
 
@@ -96,8 +98,9 @@ grain_offer_checker/
   reporting.py    tables, CSV and Excel export
   pipeline.py     runs everything; command-line options
 scripts/          synthetic data generator
-tests/            pytest tests (13)
+tests/            pytest tests (15)
 data/raw/         synthetic input data
+data/batch/       the same offers split into two files (multiple-file demo)
 ```
 
 ## Limitations
@@ -110,7 +113,7 @@ data/raw/         synthetic input data
 
 ## Possible extensions
 
-Multiple-file import, a change history, a review dashboard, a database (PostgreSQL),
+A change history, a review dashboard, a database (PostgreSQL),
 an API (FastAPI), Docker and automated tests in CI.
 
 

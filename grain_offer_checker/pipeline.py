@@ -19,14 +19,35 @@ CORRECTION_COLUMNS = [
 ]
 
 
+def load_input(input_path):
+    """Load one CSV file, or every CSV file in a folder, into one table."""
+    input_path = Path(input_path)
+    if input_path.is_dir():
+        files = sorted(input_path.glob("*.csv"))
+        if not files:
+            raise SystemExit(f"No CSV files found in {input_path}")
+    else:
+        files = [input_path]
+
+    tables = []
+    for file in files:
+        table = pd.read_csv(file)
+        table.insert(0, "source_file", file.name)
+        tables.append(table)
+
+    return pd.concat(tables, ignore_index=True)
+
+
 def run(input_path, output_dir):
-    """Check one CSV file and write the reports. Returns the summary table."""
+    """Check one CSV file or a folder of CSV files and write the reports."""
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    original = pd.read_csv(input_path)
+    original = load_input(input_path)
     cleaned, corrections = clean_data(original)
     issues = validate(cleaned)
+    issues.insert(1, "source_file",
+                  [cleaned.loc[n - 1, "source_file"] for n in issues["row_number"]])
     reviewed = build_reviewed_data(cleaned, issues)
     corrections_df = pd.DataFrame(corrections, columns=CORRECTION_COLUMNS)
 
@@ -48,8 +69,11 @@ def run(input_path, output_dir):
 
 def main():
     parser = argparse.ArgumentParser(description="Check synthetic equipment offer data.")
-    parser.add_argument("--input", default="data/raw/synthetic_offers.csv",
-                        help="CSV file to check")
+    parser.add_argument(
+        "--input",
+        default="data/raw/synthetic_offers.csv",
+        help="CSV file or folder containing CSV files",
+    )
     parser.add_argument("--output", default="output",
                         help="folder for the reports")
     args = parser.parse_args()

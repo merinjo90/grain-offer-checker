@@ -1,0 +1,26 @@
+offer_id,supplier,equipment_type,capacity_t,quantity,unit_price_eur,total_price_eur,offer_date,valid_until,delivery_weeks,data_source
+OFF-021,Synthetic Supplier B,silo,13047,4,27000,108000,2026-05-17,2026-08-15,8,manual_entry
+OFF-022,Synthetic Supplier B,conveyor,236,3,145000,435000,2026-06-05,2026-09-03,21,manual_entry
+OFF-023,Synthetic Supplier D,conveyor,211,3,112000,336000,2026-06-21,2025-12-01,20,manual_entry
+OFF-024,Synthetic Supplier E,conveyor,30,2,26000,52000,2026-03-28,2026-06-26,21,manual_entry
+OFF-025,Synthetic Supplier B,conveyor,50,1,28000,28000,2026-06-11,2026-09-09,6,manual_entry
+OFF-026,Synthetic Supplier D,dryer,50000,1,141000,141000,2026-03-02,2026-05-31,10,manual_entry
+OFF-027,Synthetic Supplier A,cleaner,117,2,131000,262000,2026-04-15,2026-07-14,7,manual_entry
+OFF-028,Synthetic Supplier A,dryer,47,4,115000,460000,2026-04-30,2026-07-29,5,manual_entry
+OFF-029,Synthetic Supplier E,dryer,117,1,73000,73000,2026-02-19,2026-05-20,80,ai_extracted
+OFF-030,Synthetic Supplier D,conveyor,58,3,128000,384000,2026-03-05,2026-06-03,29,manual_entry
+OFF-031,Synthetic Supplier A,silo,14197,1,176000,176000,2026-05-19,2026-08-17,6,manual_entry
+OFF-032,Synthetic Supplier B,elevator,266,2,114000,228000,2026-05-05,2026-08-03,16,manual_entry
+OFF-033,Synthetic Supplier D,conveyor,155,4,10000,40000,2026-04-10,2026-07-09,13,manual_entry
+OFF-034,Synthetic Supplier A,cleaner,131,2,58000,116000,2026-03-17,2026-06-15,22,manual_entry
+OFF-035,Synthetic Supplier D, Silo ,10071,3,24000,72000,2026-01-13,2026-04-13,20,manual_entry
+OFF-036,Synthetic Supplier A,conveyor,115,1,140000,140000,2026-01-21,2026-04-21,23,ai_extracted
+OFF-037,Synthetic Supplier E,conveyor,146,4,40000,160000,2026-05-26,2026-08-24,23,ai_extracted
+OFF-038,  Synthetic Supplier C,silo,9760,4,178000,712000,2026-05-30,2026-08-28,14,manual_entry
+OFF-039,Synthetic Supplier B,conveyor,222,3,71000,213000,2026-03-09,2026-06-07,25,manual_entry
+OFF-040,Synthetic Supplier E,cleaner,254,3,28000,84000,2026-01-03,2026-04-03,22,manual_entry
+OFF-041,Synthetic Supplier C,silo,2670,2,139000,278000,2026-03-09,2026-06-07,6,manual_entry
+OFF-042,Synthetic Supplier C,dryer,298,3,50000,150000,2026-04-23,2026-07-22,23,manual_entry
+OFF-043,Synthetic Supplier B,silo,14887,3,179000,537000,2026-01-27,2026-04-27,12,ai_extracted
+OFF-044,Synthetic Supplier B,silo,10409,2,79000,158000,2026-03-14,2026-06-12,26,manual_entry
+OFF-045,Synthetic Supplier D,dryer,67,4,74000,296000,2026-01-14,2026-04-14,30,manual_entry
