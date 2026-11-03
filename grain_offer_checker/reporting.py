@@ -29,3 +29,32 @@ def build_reviewed_data(cleaned_df, issues_df):
     reviewed.insert(1, "status", statuses)
     reviewed.insert(2, "issues", summaries)
     return reviewed
+
+def build_summary(reviewed_df, issues_df, corrections):
+    """Return the key numbers as a two-column table."""
+    rows = [
+        ("Records checked", len(reviewed_df)),
+        ("Records OK", (reviewed_df["status"] == STATUS_OK).sum()),
+        ("Records with unresolved errors", (reviewed_df["status"] == STATUS_ERROR).sum()),
+        ("Records needing review", (reviewed_df["status"] == STATUS_REVIEW).sum()),
+        ("Error issues", (issues_df["severity"] == "error").sum()),
+        ("Review issues", (issues_df["severity"] == "review").sum()),
+        ("Automatic corrections", len(corrections)),
+        ("Note", "Synthetic demonstration data only"),
+    ]
+    return pd.DataFrame(rows, columns=["Metric", "Value"])
+
+
+def build_offer_comparison(reviewed_df):
+    """Compare price per capacity unit by equipment type, using OK records only."""
+    ok = reviewed_df[reviewed_df["status"] == STATUS_OK].copy()
+    ok["price_per_capacity_unit"] = (
+        pd.to_numeric(ok["unit_price_eur"]) / pd.to_numeric(ok["capacity_t"])
+    )
+    comparison = (
+        ok.groupby("equipment_type")["price_per_capacity_unit"]
+        .agg(["count", "min", "mean", "max"])
+        .round(2)
+        .reset_index()
+    )
+    return comparison
