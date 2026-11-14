@@ -105,7 +105,7 @@ def for_display(table):
     """
     table = table.copy()
     for column in table.columns:
-        if pd.api.types.is_object_dtype(table[column]):
+        if pd.api.types.is_object_dtype(table[column]) or pd.api.types.is_string_dtype(table[column]):
             table[column] = table[column].fillna("").astype(str)
     return table
 

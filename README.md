@@ -39,7 +39,14 @@ Run commands from the project folder.
 
 An interactive Streamlit dashboard that runs the checks and shows the results as charts and a filterable, colour-coded table.
 
+![Dashboard demo: scrolling through the charts and searching the records table](docs/dashboard.gif)
+
+<details>
+<summary>Static screenshot</summary>
+
 ![Dashboard showing the check results for the sample data](docs/dashboard.png)
+
+</details>
 
 Run it locally from the project folder:
 
@@ -47,8 +54,7 @@ Run it locally from the project folder:
 streamlit run dashboard.py
 ```
 
-**Live demo:** _coming soon (link will be added once the app is deployed to Streamlit Community Cloud)_
-<!-- TODO: replace the line above with: **Live demo:** [Open the dashboard](https://YOUR-APP.streamlit.app) -->
+**Live demo:** [Open the Live Demo](https://grain-offer-checker.streamlit.app)
 
 ## Output
 
