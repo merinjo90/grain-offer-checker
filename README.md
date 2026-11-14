@@ -17,7 +17,7 @@ flags uncertain records for human review, and produces an Excel report.
 
 ## Quick start
 
-Requires Python 3.8 or newer.
+Requires Python 3.10 or newer.
 
 ```bash
 python3 -m venv .venv
@@ -34,6 +34,21 @@ Options: `--input` accepts one CSV file **or a folder** of CSV files (combined i
 Example: `python -m grain_offer_checker.pipeline --input data/batch --output output/batch`
 
 Run commands from the project folder.
+
+## Dashboard Preview
+
+An interactive Streamlit dashboard that runs the checks and shows the results as charts and a filterable, colour-coded table.
+
+![Dashboard showing the check results for the sample data](docs/dashboard.png)
+
+Run it locally from the project folder:
+
+```bash
+streamlit run dashboard.py
+```
+
+**Live demo:** _coming soon (link will be added once the app is deployed to Streamlit Community Cloud)_
+<!-- TODO: replace the line above with: **Live demo:** [Open the dashboard](https://YOUR-APP.streamlit.app) -->
 
 ## Output
 
@@ -97,6 +112,7 @@ grain_offer_checker/
   cleaning.py     safe formatting corrections
   reporting.py    tables, CSV and Excel export
   pipeline.py     runs everything; command-line options
+dashboard.py      interactive Streamlit dashboard
 scripts/          synthetic data generator
 tests/            pytest tests (15)
 data/raw/         synthetic input data
@@ -113,7 +129,7 @@ data/batch/       the same offers split into two files (multiple-file demo)
 
 ## Possible extensions
 
-A change history, a review dashboard, a database (PostgreSQL),
+A change history, a database (PostgreSQL),
 an API (FastAPI), Docker and automated tests in CI.
 
 
